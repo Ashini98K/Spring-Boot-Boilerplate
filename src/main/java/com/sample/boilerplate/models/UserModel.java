@@ -1,5 +1,6 @@
 package com.sample.boilerplate.models;
 
+import com.sample.boilerplate.configs.Constants.USER_TYPES;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -7,6 +8,9 @@ import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import java.time.OffsetDateTime;
 
+/**
+ * User model class
+ */
 @Entity
 @Table(name = "users")
 @Getter
@@ -27,7 +31,8 @@ public class UserModel {
     private String email;
 
     @Column(nullable = false)
-    private String userType;
+    @Enumerated(EnumType.STRING)
+    private USER_TYPES userType;
 
     @CreatedDate
     @Column(nullable = false, updatable = false)
@@ -36,6 +41,5 @@ public class UserModel {
     @LastModifiedDate
     @Column(nullable = false)
     private OffsetDateTime lastUpdated;
-
 
 }
