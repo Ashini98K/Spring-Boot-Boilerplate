@@ -11,7 +11,9 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 //@EnableSwagger2
 //@ComponentScan("com.sample.boilerplate.configs") // Replace with the correct package name
 public class BoilerplateApplication {
-
+	/**
+	 * Main class that runs the application
+	 */
 	public static void main(String[] args) {
 		SpringApplication.run(BoilerplateApplication.class, args);
 	}

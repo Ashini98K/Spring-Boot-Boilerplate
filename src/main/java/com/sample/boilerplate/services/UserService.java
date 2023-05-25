@@ -8,14 +8,28 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+/**
+ * Service file that has user domain related business logics
+ */
 @Service
 public class UserService {
+    /**
+     * UserRepository reference object
+     */
     private final UserRepository userRepository;
 
+    /**
+     * Default constructor
+     * @param {UserService} userRepository
+     */
     public UserService(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
 
+    /**
+     * Get all users, transfer them into user DTOs and return it as a list
+     * @return {List<UserDTO>} - List of user DTOs
+     */
     public List<UserDTO> findAll() {
         final List<UserModel> users = userRepository.findAll(Sort.by("id"));
         return users.stream()
@@ -23,6 +37,11 @@ public class UserService {
                 .toList();
     }
 
+    /**
+     * Method to transfer user model into a user DTO
+     * @param {UserModel} user - User model object that needs to be converted into a user DTO
+     * @return {UserDTO} userDTO - Converted user DTO
+     */
     private UserDTO mapToUserDTO(UserModel user) {
         UserDTO userDTO = new UserDTO();
         userDTO.setFirstName(user.getFirstName());
