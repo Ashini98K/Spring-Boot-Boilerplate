@@ -1,9 +1,13 @@
 package com.sample.boilerplate.dtos;
 
+import com.sample.boilerplate.configs.Constants.USER_TYPES;
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
 
+/**
+ * Data transfer object for User model
+ */
 @Getter
 @Setter
 public class UserDTO {
@@ -17,5 +21,5 @@ public class UserDTO {
     private String email;
 
     @NotNull
-    private String userType;
+    private USER_TYPES userType;
 }

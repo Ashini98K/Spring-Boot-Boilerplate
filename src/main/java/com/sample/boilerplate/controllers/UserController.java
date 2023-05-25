@@ -9,16 +9,30 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
+/**
+ * User controller to handle user routes
+ */
 @RestController
 @RequestMapping(path = "/users")
 public class UserController {
 
+    /**
+     * UserService reference object
+     */
     private final UserService userService;
 
+    /**
+     * Default constructor
+     * @param {UserService} userService
+     */
     public UserController(UserService userService) {
         this.userService = userService;
     }
 
+    /**
+     * Get route for getting all the users
+     * @return {ResponseEntity} - List of user DTOs
+     */
     @GetMapping
     public ResponseEntity<List<UserDTO>> getAllUsers(){
         return ResponseEntity.ok(userService.findAll());

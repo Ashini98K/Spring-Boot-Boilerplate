@@ -6,6 +6,11 @@ import org.springframework.stereotype.Repository;
 
 import java.io.Serializable;
 
+/**
+ * Base repository interface that extends JPA repository that has all generic database functionalities
+ * @param <T> Model class
+ * @param <ID>  Primary key
+ */
 @NoRepositoryBean
 public interface BaseRepository <T, ID> extends JpaRepository<T, ID>{
 }
