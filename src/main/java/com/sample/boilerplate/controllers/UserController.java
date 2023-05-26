@@ -1,13 +1,13 @@
 package com.sample.boilerplate.controllers;
-
+//
+import jakarta.validation.Valid;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+import java.util.List;
+//
 import com.sample.boilerplate.dtos.UserDTO;
 import com.sample.boilerplate.services.UserService;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-
-import java.util.List;
 
 /**
  * User controller to handle user routes
@@ -27,6 +27,16 @@ public class UserController {
      */
     public UserController(UserService userService) {
         this.userService = userService;
+    }
+
+    /**
+     * POST route for adding a user
+     * @return {userId}
+     * */
+    @PostMapping
+    public ResponseEntity<Long> addUser (@RequestBody @Valid final UserDTO userDTO){
+        final Long userId = userService.addUser(userDTO);
+        return new ResponseEntity<>(userId, HttpStatus.CREATED);
     }
 
     /**
