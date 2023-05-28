@@ -3,6 +3,7 @@ package com.sample.boilerplate.services;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import java.util.List;
+import java.util.NoSuchElementException;
 //
 import com.sample.boilerplate.dtos.UserDTO;
 import com.sample.boilerplate.models.UserModel;
@@ -38,6 +39,37 @@ public class UserService {
     }
 
     /**
+     * Get all users, transfer them into user DTOs and return it as a list
+     * @return {List<UserDTO>} - List of user DTOs
+     */
+    public List<UserDTO> findAll() {
+        final List<UserModel> users = userRepository.findAll(Sort.by("id"));
+        return users.stream()
+                .map((user) -> mapToUserDTO(user))
+                .toList();
+    }
+
+    /**
+     * Method to get user by id
+     * @param {Long} id - Id of the user that needs to be fetched
+     * @return {UserDTO} userDTO - User DTO object
+     */
+    public UserDTO getUserById(Long id) {
+        final UserModel user = userRepository.findById(id).orElseThrow();
+        return mapToUserDTO(user);
+    }
+
+    /**
+     * Method to get user by email
+     * @param {String} email - Email of the user that needs to be fetched
+     * @return {UserDTO} userDTO - User DTO object
+     */
+    public UserDTO getUserByEmail(String email) {
+        final UserModel user = userRepository.findByEmail(email);
+        return mapToUserDTO(user);
+    }
+
+    /**
      * Method to transfer user DTO into a user Model
      * @param {UserDTO} userDTO - User DTO object that needs to be converted into a user model
      * @param {UserModel} userModel - User model object that needs to be converted into a user DTO
@@ -49,17 +81,6 @@ public class UserService {
         userModel.setEmail(userDTO.getEmail());
         userModel.setUserType(userDTO.getUserType());
         return userModel;
-    }
-
-    /**
-     * Get all users, transfer them into user DTOs and return it as a list
-     * @return {List<UserDTO>} - List of user DTOs
-     */
-    public List<UserDTO> findAll() {
-        final List<UserModel> users = userRepository.findAll(Sort.by("id"));
-        return users.stream()
-                .map((user) -> mapToUserDTO(user))
-                .toList();
     }
 
     /**
@@ -76,4 +97,5 @@ public class UserService {
         userDTO.setUserType(user.getUserType());
         return userDTO;
     }
+
 }

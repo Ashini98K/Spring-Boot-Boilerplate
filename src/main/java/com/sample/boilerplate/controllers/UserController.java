@@ -47,4 +47,24 @@ public class UserController {
     public ResponseEntity<List<UserDTO>> getAllUsers(){
         return ResponseEntity.ok(userService.findAll());
     }
+
+    /**
+     * Get route for getting a user by id
+     * @param {Long} id - Id of the user
+     * @return {ResponseEntity} - User DTO
+     */
+    @GetMapping(path = "/{id}")
+    public ResponseEntity<UserDTO> getUserById(@PathVariable final Long id){
+        return ResponseEntity.ok(userService.getUserById(id));
+    }
+
+    /**
+     * Get route for getting a user by email
+     * @param {String} email - Email of the user
+     * @return {ResponseEntity} - User DTO
+     */
+    @GetMapping(path = "/email/{email}")
+    public ResponseEntity<UserDTO> getUserByEmail(@PathVariable final String email){
+        return ResponseEntity.ok(userService.getUserByEmail(email));
+    }
 }
