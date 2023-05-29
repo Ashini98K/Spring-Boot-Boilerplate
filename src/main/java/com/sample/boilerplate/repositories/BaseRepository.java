@@ -2,9 +2,6 @@ package com.sample.boilerplate.repositories;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.repository.NoRepositoryBean;
-import org.springframework.stereotype.Repository;
-
-import java.io.Serializable;
 
 /**
  * Base repository interface that extends JPA repository that has all generic database functionalities

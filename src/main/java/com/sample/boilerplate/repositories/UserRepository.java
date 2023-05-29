@@ -8,4 +8,12 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public interface UserRepository extends BaseRepository<UserModel, Long> {
+
+    /**
+     * Find user by email
+     *
+     * @param {String} email - Email of the user
+     * @return {List<UserModel>} - List of user models
+     */
+    UserModel findByEmail(String email);
 }

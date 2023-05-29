@@ -1,6 +1,7 @@
 package com.sample.boilerplate.dtos;
 
 import com.sample.boilerplate.configs.Constants.USER_TYPES;
+import com.sample.boilerplate.models.UserModel;
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
@@ -11,6 +12,9 @@ import lombok.Setter;
 @Getter
 @Setter
 public class UserDTO {
+
+    private Long id;
+
     @NotNull
     private String firstName;
 
@@ -22,4 +26,8 @@ public class UserDTO {
 
     @NotNull
     private USER_TYPES userType;
+
+    public UserModel orElseThrow() {
+        return null;
+    }
 }
