@@ -8,7 +8,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 @EnableJpaRepositories
 public class BoilerplateApplication {
 	/**
-	 * Main class that runs the application
+	 * Main method that runs the application
 	 */
 	public static void main(String[] args) {
 		SpringApplication.run(BoilerplateApplication.class, args);
