@@ -35,11 +35,11 @@ public class UserModel {
     private USER_TYPES userType;
 
     @CreatedDate
-    @Column(nullable = false, updatable = false)
+    @Column(nullable = true, updatable = false)
     private OffsetDateTime dateCreated;
 
     @LastModifiedDate
-    @Column(nullable = false)
+    @Column(nullable = true)
     private OffsetDateTime lastUpdated;
 
 }
