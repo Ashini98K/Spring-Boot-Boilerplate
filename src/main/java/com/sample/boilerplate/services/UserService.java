@@ -4,6 +4,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.stream.Collectors;
 //
 import com.sample.boilerplate.dtos.UserDTO;
 import com.sample.boilerplate.models.UserModel;
@@ -45,8 +46,12 @@ public class UserService {
     public List<UserDTO> findAll() {
         final List<UserModel> users = userRepository.findAll(Sort.by("id"));
         return users.stream()
-                .map((user) -> mapToUserDTO(user))
-                .toList();
+                .map(user -> {
+                    final UserDTO userDTO = new UserDTO();
+                    mapToUserDTO(user, userDTO);
+                    return userDTO;
+                })
+                .collect(Collectors.toList());
     }
 
     /**
@@ -55,8 +60,8 @@ public class UserService {
      * @return {UserDTO} userDTO - User DTO object
      */
     public UserDTO getUserById(Long id) {
-        final UserModel user = userRepository.findById(id).orElseThrow();
-        return mapToUserDTO(user);
+        final UserModel user = userRepository.findById(id).orElseThrow(); final UserDTO userDTO = new UserDTO();
+        return mapToUserDTO(user, userDTO);
     }
 
     /**
@@ -66,7 +71,8 @@ public class UserService {
      */
     public UserDTO getUserByEmail(String email) {
         final UserModel user = userRepository.findByEmail(email);
-        return mapToUserDTO(user);
+        final UserDTO userDTO = new UserDTO();
+        return mapToUserDTO(user, userDTO);
     }
 
     /**
@@ -88,8 +94,7 @@ public class UserService {
      * @param {UserModel} user - User model object that needs to be converted into a user DTO
      * @return {UserDTO} userDTO - Converted user DTO
      */
-    private UserDTO mapToUserDTO(UserModel user) {
-        UserDTO userDTO = new UserDTO();
+    private UserDTO mapToUserDTO(UserModel user, UserDTO userDTO) {
         userDTO.setId(user.getId());
         userDTO.setFirstName(user.getFirstName());
         userDTO.setLastName(user.getLastName());
