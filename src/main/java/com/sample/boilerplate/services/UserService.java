@@ -1,7 +1,10 @@
 package com.sample.boilerplate.services;
 //
+
+import com.sample.boilerplate.exceptions.RecordNotFoundException;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
@@ -32,7 +35,7 @@ public class UserService {
      * Add user to database
      * @param {UserDTO} userDTO
      * @return {userId} - Id of the user that is created
-     * */
+     */
     public Long addUser(final UserDTO userDTO) {
         final UserModel user = new UserModel();
         mapToEntity(userDTO, user);
@@ -60,7 +63,8 @@ public class UserService {
      * @return {UserDTO} userDTO - User DTO object
      */
     public UserDTO getUserById(Long id) {
-        final UserModel user = userRepository.findById(id).orElseThrow(); final UserDTO userDTO = new UserDTO();
+        final UserModel user = userRepository.findById(id).orElseThrow(() -> new RecordNotFoundException("No user found for the given ID"));
+        final UserDTO userDTO = new UserDTO();
         return mapToUserDTO(user, userDTO);
     }
 
@@ -71,6 +75,9 @@ public class UserService {
      */
     public UserDTO getUserByEmail(String email) {
         final UserModel user = userRepository.findByEmail(email);
+        if (user == null) {
+            throw new RecordNotFoundException("No user found for the given email");
+        }
         final UserDTO userDTO = new UserDTO();
         return mapToUserDTO(user, userDTO);
     }
