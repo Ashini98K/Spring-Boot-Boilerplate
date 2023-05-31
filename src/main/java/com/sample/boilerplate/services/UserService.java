@@ -2,6 +2,9 @@ package com.sample.boilerplate.services;
 //
 
 import com.sample.boilerplate.exceptions.RecordNotFoundException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
@@ -34,7 +37,7 @@ public class UserService {
     /**
      * Add user to database
      * @param {UserDTO} userDTO
-     * @return {userId} - Id of the user that is created
+     * @return {userId} - ID of the user that is created
      */
     public Long addUser(final UserDTO userDTO) {
         final UserModel user = new UserModel();
@@ -44,22 +47,26 @@ public class UserService {
 
     /**
      * Get all users, transfer them into user DTOs and return it as a list
+     * @param {int} page - Page number
+     * @param {int} pageSize - Page size
+     * @param {String} sortBy - Attribute to sort by
+     * @param {Sort.Direction} sortDirection - Sorting direction
      * @return {List<UserDTO>} - List of user DTOs
      */
-    public List<UserDTO> findAll() {
-        final List<UserModel> users = userRepository.findAll(Sort.by("id"));
-        return users.stream()
-                .map(user -> {
-                    final UserDTO userDTO = new UserDTO();
-                    mapToUserDTO(user, userDTO);
-                    return userDTO;
-                })
-                .collect(Collectors.toList());
+    public Page<UserDTO> findAll(int page, int pageSize, String sortBy, Sort.Direction sortDirection) {
+        final Sort sort = Sort.by(sortDirection, sortBy);
+        final Pageable pageable = PageRequest.of(page, pageSize, sort);
+        final Page<UserModel> users = userRepository.findAll(pageable);
+        return users.map(user -> {
+            final UserDTO userDTO = new UserDTO();
+            mapToUserDTO(user, userDTO);
+            return userDTO;
+        });
     }
 
     /**
      * Method to get user by id
-     * @param {Long} id - Id of the user that needs to be fetched
+     * @param {Long} id - ID of the user that needs to be fetched
      * @return {UserDTO} userDTO - User DTO object
      */
     public UserDTO getUserById(Long id) {
@@ -84,8 +91,8 @@ public class UserService {
 
     /**
      * Method to transfer user DTO into a user Model
-     * @param {UserDTO} userDTO - User DTO object that needs to be converted into a user model
      * @param {UserModel} userModel - User model object that needs to be converted into a user DTO
+     * @param {UserDTO} userDTO - User DTO object that needs to be converted into a user model
      * @return {UserModel} userModel - Converted user model object
      */
     private UserModel mapToEntity(UserDTO userDTO, UserModel userModel) {
