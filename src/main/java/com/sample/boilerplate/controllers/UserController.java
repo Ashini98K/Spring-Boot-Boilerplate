@@ -25,12 +25,6 @@ import com.sample.boilerplate.services.UserService;
 @RequestMapping(path = "/users")
 public class UserController {
     private static final Logger logger = LoggerFactory.getLogger(UserController.class);
-
-    public void logUrlAndStatusCode(String url, int statusCode) {
-        logger.info("Accessed URL: {}, Status Code: {}", url, statusCode);
-    }
-
-
     /**
      * UserService reference object
      */
