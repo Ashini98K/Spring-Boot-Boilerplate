@@ -20,9 +20,9 @@ public class ApiError {
 
     /**
      * Constructs an instance of ApiError with HTTP status, message, and timestamp.
-     * @param httpStatus The HTTP status code of the error response
-     * @param message A descriptive message for the error
-     * @param dateTime The timestamp when the error occurred
+     * @param {HttpStatus} httpStatus - The HTTP status code of the error response
+     * @param {String} message - A descriptive message for the error
+     * @param {ZonedDateTime} dateTime - The timestamp when the error occurred
      */
     public ApiError(HttpStatus httpStatus, String message, ZonedDateTime dateTime) {
         this.httpStatus = httpStatus;
@@ -32,10 +32,10 @@ public class ApiError {
 
     /**
      * Constructs an instance of ApiError with HTTP status, message, timestamp, and field errors.
-     * @param httpStatus The HTTP status code of the error response
-     * @param message A descriptive message for the error
-     * @param dateTime The timestamp when the error occurred
-     * @param fieldErrors A list of field-specific error details
+     * @param {HttpStatus} httpStatus - The HTTP status code of the error response
+     * @param {String} message - A descriptive message for the error
+     * @param {ZonedDateTime} dateTime - The timestamp when the error occurred
+     * @param {List<FieldError></>} fieldErrors A list of field-specific error details
      */
     public ApiError(HttpStatus httpStatus, String message, ZonedDateTime dateTime, List<FieldError> fieldErrors) {
         this.httpStatus = httpStatus;
