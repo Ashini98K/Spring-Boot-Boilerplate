@@ -4,6 +4,8 @@ package com.sample.boilerplate.controllers;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.ExampleObject;
 import jakarta.validation.Valid;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -19,6 +21,12 @@ import com.sample.boilerplate.services.UserService;
 @RestController
 @RequestMapping(path = "/users")
 public class UserController {
+    private static final Logger logger = LoggerFactory.getLogger(UserController.class);
+
+    public void logUrlAndStatusCode(String url, int statusCode) {
+        logger.info("Accessed URL: {}, Status Code: {}", url, statusCode);
+    }
+
 
     /**
      * UserService reference object
