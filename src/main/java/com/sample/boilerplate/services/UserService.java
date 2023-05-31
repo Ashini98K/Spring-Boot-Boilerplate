@@ -76,17 +76,27 @@ public class UserService {
     }
 
     /**
-     * Method to get user by email
-     * @param {String} email - Email of the user that needs to be fetched
+     * Method to patch a user by id
+     * @param {Long} id - ID of the user that needs to be patched
      * @return {UserDTO} userDTO - User DTO object
      */
-    public UserDTO getUserByEmail(String email) {
-        final UserModel user = userRepository.findByEmail(email);
-        if (user == null) {
-            throw new RecordNotFoundException("No user found for the given email");
-        }
-        final UserDTO userDTO = new UserDTO();
-        return mapToUserDTO(user, userDTO);
+    public UserDTO patchUserById(Long id, UserDTO userDTO) {
+        final UserModel user = userRepository.findById(id).orElseThrow(() -> new RecordNotFoundException("No user found for the given ID"));
+        final UserModel convertedUserEntity = mapToEntity(userDTO, user);
+        UserModel patchedUser = userRepository.save(convertedUserEntity);
+        return mapToUserDTO(patchedUser, new UserDTO());
+    }
+
+    /**
+     * Method to delete a user by id
+     * @param {Long} id - ID of the user that needs to be deleted
+     * @return {UserDTO} userDTO - User DTO object
+     */
+    public UserDTO deleteUserById(Long id) {
+        final UserModel user = userRepository.findById(id).orElseThrow(() -> new RecordNotFoundException("No user found for the given ID"));
+        UserDTO convertedUserDTO = mapToUserDTO(user, new UserDTO());
+        userRepository.deleteById(id);
+        return convertedUserDTO;
     }
 
     /**

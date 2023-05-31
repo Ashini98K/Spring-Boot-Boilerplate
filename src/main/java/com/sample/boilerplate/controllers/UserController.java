@@ -71,12 +71,23 @@ public class UserController {
     }
 
     /**
-     * Get route for getting a user by email
-     * @param {String} email - Email of the user
+     * Patch route for deleting a user by user ID
+     * @param {Long} id - ID of the user
+     * @param {UserDTO} userDTO - User object that is used to patch the resource
      * @return {ResponseEntity} - User DTO
      */
-    @GetMapping(path = "/email/{email}")
-    public ResponseEntity<UserDTO> getUserByEmail(@PathVariable final String email) {
-        return ResponseEntity.ok(userService.getUserByEmail(email));
+    @PatchMapping(path = "/{id}")
+    public ResponseEntity<UserDTO> patchUserById(@PathVariable final Long id, @RequestBody @Valid final UserDTO userDTO) {
+        return ResponseEntity.ok(userService.patchUserById(id, userDTO));
+    }
+
+    /**
+     * Delete route for deleting a user by user ID
+     * @param {Long} id - ID of the user
+     * @return {ResponseEntity} - User DTO
+     */
+    @DeleteMapping(path = "/{id}")
+    public ResponseEntity<UserDTO> deleteUserById(@PathVariable final Long id) {
+        return ResponseEntity.ok(userService.deleteUserById(id));
     }
 }
