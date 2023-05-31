@@ -84,8 +84,8 @@ public class UserService {
 
     /**
      * Method to transfer user DTO into a user Model
-     * @param {UserDTO} userDTO - User DTO object that needs to be converted into a user model
      * @param {UserModel} userModel - User model object that needs to be converted into a user DTO
+     * @param {UserDTO} userDTO - User DTO object that needs to be converted into a user model
      * @return {UserModel} userModel - Converted user model object
      */
     private UserModel mapToEntity(UserDTO userDTO, UserModel userModel) {
