@@ -5,6 +5,8 @@ import com.sample.boilerplate.configs.Constants;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.ExampleObject;
 import jakarta.validation.Valid;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
@@ -22,7 +24,7 @@ import com.sample.boilerplate.services.UserService;
 @RestController
 @RequestMapping(path = "/users")
 public class UserController {
-
+    private static final Logger logger = LoggerFactory.getLogger(UserController.class);
     /**
      * UserService reference object
      */
