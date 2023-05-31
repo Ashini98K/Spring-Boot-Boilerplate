@@ -13,8 +13,16 @@ import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.util.List;
 
+/**
+ * Handler that handle global exceptions
+ */
 @RestControllerAdvice
 public class GlobalExceptionHandler {
+    /**
+     * Method that handle RecordNotFoundException
+     * @param {RecordNotFoundException} exception - Exception that is thrown
+     * @return {ResponseEntity} - apiError response
+     */
     @ExceptionHandler(value = RecordNotFoundException.class)
     public ResponseEntity<Object> handleRecordNotFoundException(RecordNotFoundException exception) {
         ApiError apiError = new ApiError(
@@ -25,6 +33,11 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(apiError, HttpStatus.BAD_REQUEST);
     }
 
+    /**
+     * Method that handle MethodArgumentNotValidException
+     * @param {MethodArgumentNotValidException} exception - Exception that is thrown
+     * @return {ResponseEntity} - apiError response
+     */
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<Object> handleMethodArgumentNotValidException(MethodArgumentNotValidException exception) {
         final BindingResult bindingResult = exception.getBindingResult();
@@ -47,6 +60,11 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(apiError, HttpStatus.BAD_REQUEST);
     }
 
+    /**
+     * Method that handle HttpRequestMethodNotSupportedException
+     * @param {HttpRequestMethodNotSupportedException} exception - Exception that is thrown
+     * @return {ResponseEntity} - apiError response
+     */
     @ExceptionHandler(value = HttpRequestMethodNotSupportedException.class)
     public ResponseEntity<Object> handleHttpRequestMethodNotSupportedException(HttpRequestMethodNotSupportedException exception) {
         ApiError apiError = new ApiError(

@@ -1,9 +1,12 @@
 package com.sample.boilerplate.controllers;
 //
 
+import com.sample.boilerplate.configs.Constants;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.ExampleObject;
 import jakarta.validation.Valid;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -46,16 +49,20 @@ public class UserController {
 
     /**
      * Get route for getting all the users
+     * @param {int} page - Page number
+     * @param {int} pageSize - Page size
+     * @param {String} sortBy - Attribute to sort by
+     * @param {Sort.Direction} sortDirection - Sorting direction
      * @return {ResponseEntity} - List of user DTOs
      */
     @GetMapping
-    public ResponseEntity<List<UserDTO>> getAllUsers() {
-        return ResponseEntity.ok(userService.findAll());
+    public ResponseEntity<Page<UserDTO>> getAllUsers(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int pageSize, @RequestParam(defaultValue = "id") String sortBy, @RequestParam(defaultValue = "ASC") Sort.Direction sortDirection) {
+        return ResponseEntity.ok(userService.findAll(page, pageSize, sortBy, sortDirection));
     }
 
     /**
      * Get route for getting a user by id
-     * @param {Long} id - Id of the user
+     * @param {Long} id - ID of the user
      * @return {ResponseEntity} - User DTO
      */
     @GetMapping(path = "/{id}")
