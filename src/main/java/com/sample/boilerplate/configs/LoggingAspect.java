@@ -1,6 +1,5 @@
 package com.sample.boilerplate.configs;
 
-
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.aspectj.lang.JoinPoint;
@@ -66,7 +65,7 @@ public class LoggingAspect {
 
         String url = request.getRequestURL().toString();
         String httpMethod = request.getMethod();
-        
+
         String methodName = joinPoint.getSignature().getName();
 
         int status = response.getStatus();
